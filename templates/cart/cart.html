@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }}'s Cart{% endblock %}
+
+{% block content %}
+    <section class="clearfix">
+
+        <h2 class="section-headline">Your cart</h2>
+        <p class="section-description">
+            All products you've added to your cart
+        </p>
+    
+        <div class="cart">
+            <ul>
+                {% for item in items %}
+                    <li class="item">
+                        <div class="cart-product-img">
+                            <img src="{{item.item.image.url}}" alt="{{ item.item }}">
+                        </div>
+                        <div >
+                            <h3>{{ item.item | capfirst }}</h3>
+                        </div>
+                        <div>
+                            <p>${{ item.item.price | floatformat:2 }}</p>
+                        </div>
+                        <div>
+                            <p>{{ item.qty | floatformat:2 }}</p>
+                        </div>
+                        <div>
+                            <a class="remove" href="{% url 'remove_from_cart' product_id=item.item.id  %}">x</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>
+                        <p>Your cart is still empty!</p>
+                    </li>
+                {% endfor %}
+
+                {% if total_price > 0 %}
+                
+                    <li id="cart-summary" class="item">
+                        <div>
+                            <h3>Total price</h3>
+                        </div>
+                        <div>
+                            <p>${{ total_price | floatformat:2 }}</p>
+                        </div>
+                        <div>
+                            <a class="checkout" href="{% url 'check_out' %}">Checkout</a>
+                            <a class="clear" href="{% url 'clear_cart' %}">Clear cart</a>
+                        </div>
+
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}

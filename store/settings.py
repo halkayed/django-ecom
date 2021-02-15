@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'products',
-    'accounts'
+    'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -101,9 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'products/'
-LOGOUT_REDIRECT_URL = 'products/'
-LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL =  'list_products'
+LOGOUT_REDIRECT_URL = 'list_products'
+LOGIN_URL = 'login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -130,3 +132,5 @@ STATICFILES_DIRS =[
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT= BASE_DIR.joinpath('media')
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
